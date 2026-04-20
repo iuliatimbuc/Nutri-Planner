@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="36de2532-19de-4d05-96bc-96dae5d2ebbe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/Deliverables2026.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/constants/ActivityLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/constants/Gender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/constants/Goal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/constants/MealType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/constants/Unit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/controller/DailyLogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/controller/FoodController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/DailyLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/DailyLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/WaterLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/WaterLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/WeightLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/model/WeightLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/DailyLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/DailyLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/FoodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/FoodRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/WaterLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/WaterLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/WeightLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/repository/WeightLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/DailyLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/DailyLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/FoodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/FoodService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/WaterLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/WaterLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/WeightLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/WeightLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/impl/DailyLogServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/impl/FoodServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/impl/UserServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/impl/WaterLogServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutri_planner/service/impl/WeightLogServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/foods/edit-food.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/foods/list-foods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/logs/list-logs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/logs/user-logs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/users/edit-user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/resources/templates/users/list-users.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/test/java/com/example/nutri_planner/service/DailyLogServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/test/java/com/example/nutri_planner/service/FoodServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/test/java/com/example/nutri_planner/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/test/java/com/example/nutri_planner/service/UserServiceTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JavaScript File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/nutri-planner" />
+  </component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3CMGSGTJPG3WmIoDSZkjOrCu3Nj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "Spring Boot.NutriPlannerApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/User/Documents/AN3/PS/Proiect/project-iuliatimbuc",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.2.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationStatuses">
+      <map>
+        <entry key="HttpClient.HttpRequestRunConfigurationType">
+          <value>
+            <map>
+              <entry key="generated-requests | #2" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.NutriPlannerApplication">
+    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#2" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="NutriPlannerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="nutri-planner" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.nutri_planner.NutriPlannerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.generated-requests | #2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="36de2532-19de-4d05-96bc-96dae5d2ebbe" name="Changes" comment="" />
+      <created>1776188023290</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1776188023290</updated>
+      <workItem from="1776188024467" duration="7365000" />
+      <workItem from="1776241774503" duration="13000" />
+      <workItem from="1776420680943" duration="17739000" />
+      <workItem from="1776494198534" duration="14629000" />
+      <workItem from="1776532508135" duration="5000" />
+      <workItem from="1776617658515" duration="5125000" />
+      <workItem from="1776668041973" duration="11442000" />
+      <workItem from="1776683201621" duration="67000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
