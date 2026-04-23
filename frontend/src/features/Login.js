@@ -22,13 +22,15 @@ class Login extends React.Component {
         };
     }
 
+    // apelam mereu user ul modifica ceva
     handleInput = event => {
         const { value, name } = event.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }); // actualizeaza state dinamic
     };
 
     onSubmitFunction = event => {
         event.preventDefault();
+        // construieste obiectul trimis ca JSON
         let credentials = {
             email: this.state.email,
             password: this.state.password
@@ -36,8 +38,8 @@ class Login extends React.Component {
 
         axiosInstance.post("/auth/login", credentials)
             .then(res => {
-                const val = res.data;
-                this.setState({ loginSuccess: val });
+                const val = res.data; // User
+                this.setState({ loginSuccess: val }); // setam raspunusl
                 if (val.id !== 0) {
                     localStorage.setItem("USER_ID", res.data.id);
                     history.push("/home");
