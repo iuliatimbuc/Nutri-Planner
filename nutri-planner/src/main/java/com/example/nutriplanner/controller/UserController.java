@@ -117,5 +117,14 @@ public class UserController {
         this.userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Operatie reusita");
     }
+    @GetMapping("/email/{email}")
+    public ResponseEntity getUserByEmail(@PathVariable String email) {
+        try {
+            User user = userService.getUserByEmail(email);
+            return ResponseEntity.ok(user);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
 }
 

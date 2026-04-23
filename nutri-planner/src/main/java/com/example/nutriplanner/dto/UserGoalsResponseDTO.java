@@ -5,7 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor  // Constructor fără argumente
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserGoalsResponseDTO {
     private int dailyCalorieGoal;;

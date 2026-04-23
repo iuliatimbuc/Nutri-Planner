@@ -27,8 +27,13 @@ public class SecurityConfig implements UserDetailsService {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable()).authorizeHttpRequests((auth) -> ((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)auth.anyRequest()).permitAll()).userDetailsService(this).httpBasic(Customizer.withDefaults());
-        return (SecurityFilterChain)http.build();
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                )
+                .httpBasic(basic -> basic.disable());
+        return http.build();
     }
 
     @Bean

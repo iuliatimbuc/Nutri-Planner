@@ -3,6 +3,7 @@ package com.example.nutriplanner.controller;
 
 import com.example.nutriplanner.constants.MealType;
 import com.example.nutriplanner.dto.SaveLogRequestDTO;
+import com.example.nutriplanner.dto.UpdateLogRequestDTO;
 import com.example.nutriplanner.service.FoodService;
 import com.example.nutriplanner.service.UserService;
 import com.example.nutriplanner.service.impl.DailyLogServiceImp;
@@ -15,14 +16,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -99,6 +93,20 @@ public class DailyLogController {
         Map<String, Double> result = new LinkedHashMap();
         summary.forEach((date, cal) -> result.put(date.toString(), cal));
         return ResponseEntity.ok(result);
+    }
+
+    @Operation(summary = "Actualizeaza cantitatea unui log")
+    @PutMapping("/update")
+    public ResponseEntity<String> updateLog(@RequestBody UpdateLogRequestDTO request) {
+        dailyLogService.updateLog(request.getLogId(), request.getQuantity(), request.getMealType());
+        return ResponseEntity.ok("Log actualizat cu succes");
+    }
+
+    @Operation(summary = "Sterge un log")
+    @DeleteMapping("/delete/{logId}")
+    public ResponseEntity<String> deleteLog(@PathVariable Long logId) {
+        dailyLogService.deleteLog(logId);
+        return ResponseEntity.ok("Log sters cu succes");
     }
 }
 

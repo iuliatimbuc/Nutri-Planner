@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './features/Login';
+import Home from './features/Home';
+import MealDetail from './features/MealDetail';
+import WeightProgress from './features/WeightProgress';
+import Register from "./features/Register";
+import AddFood from "./features/AddFood";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route exact path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/meal-detail" element={<MealDetail />} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="/weight-progress" element={<WeightProgress />} />
+                <Route path="/add-food" element={<AddFood/>} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
