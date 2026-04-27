@@ -34,6 +34,7 @@ class CalendarPanel extends React.Component {
             newMonth.setMonth(newMonth.getMonth() + delta);
             return { calendarMonth: newMonth };
         }, () => this.fetchMonthlySummary(this.state.calendarMonth));
+        // dupa ce se updateaza state-ul, ia datele noii luni de la backend
     };
 
     render() {
@@ -42,14 +43,23 @@ class CalendarPanel extends React.Component {
 
         const year = calendarMonth.getFullYear();
         const month = calendarMonth.getMonth();
-        const firstDay = new Date(year, month, 1).getDay();
+        const firstDay = new Date(year, month, 1).getDay(); // in ce incepe luna
+        // cate zile are luna
         const daysInMonth = new Date(year, month + 1, 0).getDate();
+        //celulele goale la inceput ca sa  inceapa luna in ziua corects
         const blanks = Array(firstDay).fill(null);
         const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
         const allCells = [...blanks, ...days];
 
-        const selectedStr = selectedDate?.toISOString().slice(0, 10);
-        const todayStr = new Date().toISOString().slice(0, 10);
+        const toStr = (date) => {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, "0");
+            const d = String(date.getDate()).padStart(2, "0");
+            return `${y}-${m}-${d}`;
+        };
+
+        const selectedStr = selectedDate ? toStr(selectedDate) : null;
+        const todayStr = toStr(new Date());
 
         return (
             <Card sx={{ borderRadius: "16px", border: "0.5px solid rgba(0,0,0,0.1)", boxShadow: "none", mb: 1.5 }}>
@@ -84,8 +94,9 @@ class CalendarPanel extends React.Component {
                     {/* Zilele lunii */}
                     <Box sx={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 0.3 }}>
                         {allCells.map((day, i) => {
-                            if (!day) return <Box key={`blank-${i}`} />;
+                            if (!day) return <Box key={`blank-${i}`} />; // patrat gol
 
+                            /* an - luna - zi */
                             const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
                             const calories = monthlySummary[dateStr];
                             const isToday = todayStr === dateStr;

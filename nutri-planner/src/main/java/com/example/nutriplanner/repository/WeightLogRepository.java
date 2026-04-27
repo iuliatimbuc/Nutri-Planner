@@ -35,10 +35,6 @@ public class WeightLogRepository {
                 .orElse(null);
     }
 
-    public List<WeightLog> findAll() {
-        return new ArrayList<>(logs);
-    }
-
     public WeightLog findByUserAndLogDate(User user, LocalDate date) {
         return logs.stream()
                 .filter(l -> l.getUser().getId().equals(user.getId())
@@ -61,14 +57,4 @@ public class WeightLogRepository {
                 .orElse(null);
     }
 
-    public WeightLog findFirstByUserOrderByLogDateDesc(User user) {
-        return logs.stream()
-                .filter(l -> l.getUser().getId().equals(user.getId()))
-                .max(Comparator.comparing(WeightLog::getLogDate))
-                .orElse(null);
-    }
-
-    public void deleteById(Long id) {
-        logs.removeIf(l -> l.getId().equals(id));
-    }
 }

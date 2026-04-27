@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping({"/foods"})
-@Tag(
-        name = "Food",
-        description = "Operatii CRUD pentru alimente"
-)
+@Tag(name = "Food", description = "Operatii CRUD pentru alimente")
+
 public class FoodController {
     private final FoodServiceImp foodService;
 
@@ -30,28 +28,16 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    @Operation(
-            summary = "Returneaza lista tuturor alimentelor"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Lista returnata cu succes"
-    )
+    @Operation(summary = "Returneaza lista tuturor alimentelor")
+    @ApiResponse(responseCode = "200", description = "Lista returnata cu succes")
     @GetMapping({""})
     public ResponseEntity<List<Food>> showFoods() {
         return ResponseEntity.ok(this.foodService.getAllFoods());
     }
 
-    @Operation(
-            summary = "Adauga un aliment nou"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "201",
-            description = "Aliment creat cu succes"
-    ), @ApiResponse(
-            responseCode = "400",
-            description = "Date invalide"
-    )})
+    @Operation(summary = "Adauga un aliment nou")
+    @ApiResponses({@ApiResponse(responseCode = "201", description = "Aliment creat cu succes"),
+            @ApiResponse(responseCode = "400", description = "Date invalide")})
     @PostMapping({"/save"})
     public ResponseEntity<Food> saveFood(@RequestBody Food food) {
         Food created = this.foodService.createFood(food);

@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6b09fa8-de2d-4858-8f44-e87b67e82b3f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/CalendarPanel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/features/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/features/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/features/MealDetail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/features/WeightProgress.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/helper/axios.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/helper/history.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/features/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/features/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/features/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/features/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/DailyLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/DailyLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WaterLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WaterLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WeightLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WeightLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/repository/WaterLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/repository/WaterLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WaterLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WaterLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WeightLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WeightLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WaterLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WaterLogServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WeightLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WeightLogServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +32,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "iuliatimbuc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:iuliatimbuc/Nutri-Planner.git",
+    "accountId": "31ab4ba2-e8ea-480e-80e0-475b16d5ec21"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -40,26 +53,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.App.js.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/Documents/AN3/PS/Proiect/project-iuliatimbuc",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.App.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/AN3/PS/Proiect/project-iuliatimbuc&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\Documents\AN3\PS\Proiect\project-iuliatimbuc\frontend\src\components" />
@@ -83,6 +96,7 @@
       <updated>1776692849064</updated>
       <workItem from="1776692850359" duration="218000" />
       <workItem from="1776704594502" duration="847000" />
+      <workItem from="1777194524204" duration="90000" />
     </task>
     <servers />
   </component>

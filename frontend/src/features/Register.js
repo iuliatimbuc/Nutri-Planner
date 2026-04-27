@@ -58,6 +58,7 @@ class Register extends React.Component {
         return [{ value: "MAINTAIN", label: "Maintain" }];
     };
 
+    // functie de validare pentru fiecare data introdusa
     validateStep = () => {
         const { step, name, age, gender, height, weight, targetWeight,
             goal, activityLevel, targetDate, email, password, confirmPassword } = this.state;
@@ -107,7 +108,7 @@ class Register extends React.Component {
 
     nextStep = () => {
         if (this.validateStep()) {
-            // auto-set goal daca e aceeasi greutate
+            // auto-set goal daca e aceeasi greutate ca sa pot da next
             if (this.state.step === 4) {
                 const current = parseFloat(this.state.weight);
                 const target = parseFloat(this.state.targetWeight);
@@ -116,7 +117,7 @@ class Register extends React.Component {
                     return;
                 }
             }
-            this.setState({ step: this.state.step + 1 });
+            this.setState({ step: this.state.step + 1 , error: "" });
         }
     };
 
@@ -125,7 +126,7 @@ class Register extends React.Component {
     };
 
     onSubmit = event => {
-        event.preventDefault();
+        if (event) event.preventDefault(); // opreste comportamentul default
         if (!this.validateStep()) return;
 
         const { name, age, gender, height, weight, targetWeight,
@@ -305,28 +306,26 @@ class Register extends React.Component {
                                 </Typography>
                             </Box>
 
-                            <form onSubmit={this.onSubmit}>
-                                {this.renderStep()}
+                            {this.renderStep()}
 
-                                <Box mt={3} display="flex" justifyContent="space-between">
-                                    {step > 0 && (
-                                        <Button variant="outlined" onClick={this.prevStep}>
-                                            Back
-                                        </Button>
-                                    )}
-                                    {step < steps.length - 1 ? (
-                                        <Button variant="contained" color="primary"
-                                                onClick={this.nextStep} sx={{ ml: "auto" }}>
-                                            Next
-                                        </Button>
-                                    ) : (
-                                        <Button type="submit" variant="contained"
-                                                color="primary" sx={{ ml: "auto" }}>
-                                            Create Account
-                                        </Button>
-                                    )}
-                                </Box>
-                            </form>
+                            <Box mt={3} display="flex" justifyContent="space-between">
+                                {step > 0 && (
+                                    <Button variant="outlined" onClick={this.prevStep}>
+                                        Back
+                                    </Button>
+                                )}
+                                {step < steps.length - 1 ? (
+                                    <Button variant="contained" color="primary"
+                                            onClick={this.nextStep} sx={{ ml: "auto" }}>
+                                        Next
+                                    </Button>
+                                ) : (
+                                    <Button variant="contained" color="primary"
+                                            onClick={this.onSubmit} sx={{ ml: "auto" }}>
+                                        Create Account
+                                    </Button>
+                                )}
+                            </Box>
 
                             <Box mt={2}>
                                 <Button fullWidth variant="text" color="secondary"

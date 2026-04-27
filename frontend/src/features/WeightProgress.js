@@ -11,25 +11,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import {
-    Area, AreaChart, Line, XAxis, YAxis,
-    CartesianGrid, Tooltip, ResponsiveContainer
+    Area, AreaChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from "recharts";
 import axiosInstance from "../helper/axios";
 
 class WeightProgress extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { logs: [], user: null };
+        this.state = {
+            logs: [],
+            user: null };
     }
 
     componentDidMount() {
         this.fetchData();
-        // refresh la fiecare 30 secunde
-        this.interval = setInterval(this.fetchData, 30000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
     }
 
     fetchData = () => {
@@ -60,7 +55,7 @@ class WeightProgress extends React.Component {
             ...(user?.targetDate && user?.targetWeight ? [{
                 date: user.targetDate.slice(5),
                 target: user.targetWeight,
-            }] : [])
+            }] : []) // daca user are date si targhet adauga punct
         ];
 
         return (
@@ -139,13 +134,6 @@ class WeightProgress extends React.Component {
                             </Typography>
                             <ResponsiveContainer width="100%" height={220}>
                                 <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                                    <defs>
-                                        <linearGradient id="weightGrad" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#1D9E75" stopOpacity={0.2} />
-                                            <stop offset="95%" stopColor="#1D9E75" stopOpacity={0} />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
                                     <XAxis dataKey="date" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
                                     <YAxis domain={[minW, maxW]} tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
                                     <Tooltip

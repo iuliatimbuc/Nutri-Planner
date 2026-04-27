@@ -27,17 +27,6 @@ public class WaterLogRepository {
         return log;
     }
 
-    public WaterLog findById(Long id) {
-        return logs.stream()
-                .filter(l -> l.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public List<WaterLog> findAll() {
-        return new ArrayList<>(logs);
-    }
-
     public Integer sumAmountByUserAndLogDate(User user, LocalDate date) {
         return logs.stream()
                 .filter(l -> l.getUser().getId().equals(user.getId())
@@ -46,15 +35,4 @@ public class WaterLogRepository {
                 .sum();
     }
 
-    public List<LocalDate> findDistinctLogDatesByUser(User user) {
-        return logs.stream()
-                .filter(l -> l.getUser().getId().equals(user.getId()))
-                .map(WaterLog::getLogDate)
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
-    public void deleteById(Long id) {
-        logs.removeIf(l -> l.getId().equals(id));
-    }
 }

@@ -22,7 +22,6 @@ class Login extends React.Component {
         };
     }
 
-    // apelam mereu user ul modifica ceva
     handleInput = event => {
         const { value, name } = event.target;
         this.setState({ [name]: value }); // actualizeaza state dinamic

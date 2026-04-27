@@ -25,10 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping({"/users"})
-@Tag(
-        name = "Utilizatori",
-        description = "Operatii CRUD pentru utilizatori"
-)
+@Tag(name = "Utilizatori", description = "Operatii CRUD pentru utilizatori")
 public class UserController {
     private final UserServiceImp userService;
 
@@ -36,17 +33,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(
-            summary = "Cauta utilizator dupa ID",
-            description = "Returneaza utilizatorul cu ID-ul specificat"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Utilizator gasit"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "Utilizatorul nu a fost gasit"
-    )})
+    @Operation(summary = "Creaza utilizator nou", description = "Creaza un utilizator nou si calculeaza automat obiectivele nutritionale")
+    @ApiResponse(responseCode = "200", description = "Utilizator creat cu succes")
+    @PostMapping
+    public ResponseEntity saveNewUser(@RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.createUser(user));
+    }
+
+    @Operation(summary = "Cauta utilizator dupa ID", description = "Returneaza utilizatorul cu ID-ul specificat")
+    @ApiResponses({
+                @ApiResponse(responseCode = "200", description = "Utilizator gasit"),
+                @ApiResponse(responseCode = "404", description = "Utilizatorul nu a fost gasit")})
     @GetMapping({"/{id}"})
     public ResponseEntity findUserById(@Parameter(required = true,description = "ID-ul utilizatorului") @PathVariable Long id) {
         try {
@@ -56,67 +53,11 @@ public class UserController {
         }
     }
 
-    @Operation(
-            summary = "Returneaza obiectivele nutritionale",
-            description = "Returneaza obiectivele zilnice de calorii si macronutrienti ale unui utilizator"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Obiective gasite"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "Utilizatorul nu a fost gasit"
-    )})
-    @GetMapping({"/goals/{id}"})
-    public ResponseEntity getUserGoals(@Parameter(required = true,description = "ID-ul utilizatorului") @PathVariable Long id) {
-        try {
-            User user = this.userService.getUserById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(new UserGoalsResponseDTO(user.getDailyCalorieGoal(), user.getDailyProteinGoal(), user.getDailyCarbsGoal(), user.getDailyFatGoal()));
-
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-    }
-
-    @Operation(
-            summary = "Creaza utilizator nou",
-            description = "Creaza un utilizator nou si calculeaza automat obiectivele nutritionale"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Utilizator creat cu succes"
-    )
-    @PostMapping
-    public ResponseEntity saveNewUser(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.createUser(user));
-    }
-
-    @Operation(
-            summary = "Actualizeaza utilizator",
-            description = "Actualizeaza datele unui utilizator existent si recalculeaza obiectivele"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Utilizator actualizat cu succes"
-    )
-    @PutMapping({"/{id}"})
-    public ResponseEntity updateUser(@Parameter(required = true,description = "ID-ul utilizatorului") @PathVariable Long id, @RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.updateUser(id, user));
-    }
-
-    @Operation(
-            summary = "Sterge utilizator",
-            description = "Sterge un utilizator din sistem dupa ID"
-    )
-    @ApiResponse(
-            responseCode = "204",
-            description = "Utilizator sters cu succes"
-    )
-    @DeleteMapping({"/{id}"})
-    public ResponseEntity deleteUserById(@Parameter(required = true,description = "ID-ul utilizatorului") @PathVariable Long id) {
-        this.userService.deleteUser(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Operatie reusita");
-    }
+    @Operation(summary = "Obtine un user dupa email", description = "Cauta un user in baza de date dupa adresa de email")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User gasit cu succes"),
+            @ApiResponse(responseCode = "404", description = "User negasit")
+    })
     @GetMapping("/email/{email}")
     public ResponseEntity getUserByEmail(@PathVariable String email) {
         try {

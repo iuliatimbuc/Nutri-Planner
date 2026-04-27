@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping({"/weight"})
-@Tag(
-        name = "Weight Log",
-        description = "Operatii pentru tracking-ul greutatii"
-)
+@Tag(name = "Weight Log", description = "Operatii pentru tracking-ul greutatii")
+
 public class WeightLogController {
     private final WeightLogServiceImp weightLogService;
 
@@ -37,20 +35,11 @@ public class WeightLogController {
         this.weightLogService = weightLogService;
     }
 
-    @Operation(
-            summary = "Adauga un log de greutate",
-            description = "Salveaza greutatea de azi pentru un user"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "201",
-            description = "Log adaugat cu succes"
-    ), @ApiResponse(
-            responseCode = "400",
-            description = "Log deja existent pentru azi"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "User negasit"
-    )})
+    @Operation(summary = "Adauga un log de greutate",  description = "Salveaza greutatea de azi pentru un user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Log adaugat cu succes"),
+            @ApiResponse(responseCode = "400", description = "Log deja existent pentru azi"),
+            @ApiResponse(responseCode = "404", description = "User negasit")})
     @PostMapping({"/{userId}"})
     public ResponseEntity addWeightLog(@PathVariable Long userId, @RequestParam(required = false) String date, @RequestBody WeightLogRequestDTO request) {
         try {
@@ -64,29 +53,10 @@ public class WeightLogController {
         }
     }
 
-    @Operation(
-            summary = "Istoricul greutatii",
-            description = "Returneaza toate logurile de greutate ale unui user"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Istoric returnat cu succes"
-    )
-    @GetMapping({"/{userId}/history"})
-    public ResponseEntity<List<WeightLog>> getHistory(@Parameter(description = "ID-ul userului") @PathVariable Long userId) {
-        return ResponseEntity.ok(this.weightLogService.getWeightHistory(userId));
-    }
-
-    @Operation(
-            summary = "Actualizeaza un log de greutate"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Log actualizat"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "Log negasit"
-    )})
+    @Operation(summary = "Actualizeaza un log de greutate")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Log actualizat"),
+            @ApiResponse(responseCode = "404", description = "Log negasit")})
     @PutMapping({"/{logId}"})
     public ResponseEntity updateWeightLog(@Parameter(description = "ID-ul logului") @PathVariable Long logId, @RequestBody WeightLogRequestDTO request) {
         try {
@@ -95,6 +65,13 @@ public class WeightLogController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+
+    @Operation(summary = "Istoricul greutatii", description = "Returneaza toate logurile de greutate ale unui user")
+    @ApiResponse(responseCode = "200", description = "Istoric returnat cu succes")
+    @GetMapping({"/{userId}/history"})
+    public ResponseEntity<List<WeightLog>> getHistory(@Parameter(description = "ID-ul userului") @PathVariable Long userId) {
+        return ResponseEntity.ok(this.weightLogService.getWeightHistory(userId));
     }
 }
 

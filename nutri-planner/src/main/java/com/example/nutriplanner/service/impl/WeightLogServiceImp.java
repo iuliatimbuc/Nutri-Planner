@@ -22,30 +22,23 @@ public class WeightLogServiceImp implements WeightLogService {
 
     public WeightLog addWeightLog(Long userId, double weightKg, LocalDate date) {
         User user = this.userService.getUserById(userId);
-        if (this.weightLogRepository.findByUserAndLogDate(user, date) != null) {
-            throw new RuntimeException("Weight Log already exists for this date");
-        } else {
-            WeightLog log = new WeightLog();
+        WeightLog log = this.weightLogRepository.findByUserAndLogDate(user, date);
+        if (log == null) {
+            log = new WeightLog();
             log.setUser(user);
-            log.setWeightNow(weightKg);
             log.setLogDate(date);
-            double heightM = user.getHeight() / (double)100.0F;
-            log.setBmi(weightKg / (heightM * heightM));
-            WeightLog first = this.weightLogRepository.findFirstByUserOrderByLogDateAsc(user);
-            if (first != null) {
-                log.setDifferenceFromStart(weightKg - first.getWeightNow());
-            } else {
-                log.setDifferenceFromStart((double)0.0F);
-            }
-
-            log.setDifferenceFromTarget(weightKg - user.getTargetWeight());
-            if (date.equals(LocalDate.now())) {
-                user.setWeight(weightKg);
-                this.userService.updateUser(user.getId(), user);
-            }
-
-            return this.weightLogRepository.save(log);
         }
+        log.setWeightNow(weightKg);
+        double heightM = user.getHeight() / 100.0;
+        log.setBmi(weightKg / (heightM * heightM));
+        WeightLog first = this.weightLogRepository.findFirstByUserOrderByLogDateAsc(user);
+        log.setDifferenceFromStart(first != null ? weightKg - first.getWeightNow() : 0.0);
+        log.setDifferenceFromTarget(weightKg - user.getTargetWeight());
+        if (date.equals(LocalDate.now())) {
+            user.setWeight(weightKg);
+            this.userService.updateUser(user.getId(), user);
+        }
+        return this.weightLogRepository.save(log);
     }
 
     public WeightLog getWeightLogById(Long id) {
@@ -60,11 +53,6 @@ public class WeightLogServiceImp implements WeightLogService {
     public List<WeightLog> getWeightHistory(Long userId) {
         User user = this.userService.getUserById(userId);
         return this.weightLogRepository.findByUserOrderByLogDateAsc(user);
-    }
-
-    public WeightLog getByDate(Long userId, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        return this.weightLogRepository.findByUserAndLogDate(user, date);
     }
 
     public WeightLog updateWeightLog(Long logId, double newWeightKg) {
@@ -87,18 +75,5 @@ public class WeightLogServiceImp implements WeightLogService {
         return this.weightLogRepository.save(existing);
     }
 
-    public void deleteWeightLog(Long logId) {
-        WeightLog log = this.getWeightLogById(logId);
-        if (log.getLogDate().equals(LocalDate.now())) {
-            User user = log.getUser();
-            WeightLog prev = this.weightLogRepository.findFirstByUserOrderByLogDateDesc(user);
-            if (prev != null && !prev.getId().equals(logId)) {
-                user.setWeight(prev.getWeightNow());
-                this.userService.updateUser(user.getId(), user);
-            }
-        }
-
-        this.weightLogRepository.deleteById(logId);
-    }
 }
 

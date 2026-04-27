@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping({"/water"})
-@Tag(
-        name = "Water Log",
-        description = "Operatii pentru tracking-ul consumului de apa"
-)
+@Tag(name = "Water Log", description = "Operatii pentru tracking-ul consumului de apa")
+
 public class WaterLogController {
     private final WaterLogServiceImp waterLogService;
 
@@ -37,43 +35,10 @@ public class WaterLogController {
         this.waterLogService = waterLogService;
     }
 
-    @Operation(
-            summary = "Adauga un log de apa",
-            description = "Inregistreaza un consum de apa pentru un user"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "201",
-            description = "Log adaugat cu succes"
-    ), @ApiResponse(
-            responseCode = "400",
-            description = "Amount invalid"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "User negasit"
-    )})
-    @PostMapping({"/{userId}"})
-    public ResponseEntity addWaterLog(@PathVariable Long userId, @RequestBody WaterLogRequestDTO request) {
-        try {
-            WaterLog log = this.waterLogService.addWaterLog(userId, request.getAmountMl(), request.getDate());
-            return ResponseEntity.status(HttpStatus.CREATED).body(log);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
-
-    @Operation(
-            summary = "Total apa consumata azi",
-            description = "Returneaza totalul in ml consumat azi de un user"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Total returnat cu succes"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "User negasit"
-    )})
+    @Operation(summary = "Total apa consumata azi",description = "Returneaza totalul in ml consumat azi de un user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Total returnat cu succes"),
+            @ApiResponse(responseCode = "404", description = "User negasit")})
     @GetMapping({"/{userId}/today"})
     public ResponseEntity getTodayTotal(@PathVariable Long userId, @RequestParam(required = false) String date) {
         try {
@@ -85,22 +50,16 @@ public class WaterLogController {
         }
     }
 
-    @Operation(
-            summary = "Actualizeaza un log de apa",
-            description = "Modifica cantitatea unui log existent"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Log actualizat"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "Log negasit"
-    )})
-    @PutMapping({"/{logId}"})
-    public ResponseEntity updateWaterLog(@Parameter(description = "ID-ul logului") @PathVariable Long logId, @RequestBody WaterLogRequestDTO request) {
+    @Operation(summary = "Adauga un log de apa", description = "Inregistreaza un consum de apa pentru un user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Log adaugat cu succes"),
+            @ApiResponse(responseCode = "400", description = "Amount invalid"),
+            @ApiResponse(responseCode = "404", description = "User negasit")})
+    @PostMapping({"/{userId}"})
+    public ResponseEntity addWaterLog(@PathVariable Long userId, @RequestBody WaterLogRequestDTO request) {
         try {
-            WaterLog updated = this.waterLogService.updateWaterLog(logId, request.getAmountMl());
-            return ResponseEntity.ok(updated);
+            WaterLog log = this.waterLogService.addWaterLog(userId, request.getAmountMl(), request.getDate());
+            return ResponseEntity.status(HttpStatus.CREATED).body(log);
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (RuntimeException e) {

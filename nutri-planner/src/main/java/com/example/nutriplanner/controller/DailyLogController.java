@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping({"/logs"})
-@Tag(
-        name = "Daily Log",
-        description = "Operatii pentru jurnalul zilnic de alimente"
-)
+@Tag(name = "Daily Log", description = "Operatii pentru jurnalul zilnic de alimente")
 public class DailyLogController {
     private final DailyLogServiceImp dailyLogService;
     private final UserService userService;
@@ -36,18 +33,14 @@ public class DailyLogController {
         this.foodService = foodService;
     }
 
-    @Operation(
-            summary = "Obtine logurile unui user grupate pe mese, pentru o data specifica"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "200",
-            description = "Loguri returnate cu succes"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "Userul nu a fost gasit"
-    )})
+    @Operation(summary = "Obtine logurile unui user grupate pe mese, pentru o data specifica")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Loguri returnate cu succes"),
+            @ApiResponse(responseCode = "404", description = "Userul nu a fost gasit")})
+
     @GetMapping({"/{userId}"})
     public ResponseEntity<Map<String, Object>> showUserLogs(@Parameter(description = "ID-ul userului") @PathVariable Long userId, @Parameter(description = "Data in format YYYY-MM-DD, default azi") @RequestParam(required = false) String date) {
+
         LocalDate logDate = date != null ? LocalDate.parse(date) : LocalDate.now();
         Map<String, Object> response = new LinkedHashMap();
         response.put("selectedUser", this.userService.getUserById(userId));
@@ -68,31 +61,13 @@ public class DailyLogController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(
-            summary = "Adauga un nou log alimentar pentru un user"
-    )
-    @ApiResponses({@ApiResponse(
-            responseCode = "201",
-            description = "Log salvat cu succes"
-    ), @ApiResponse(
-            responseCode = "404",
-            description = "User sau aliment negasit"
-    )})
+    @Operation(summary = "Adauga un nou log alimentar pentru un user")
+    @ApiResponses({@ApiResponse(responseCode = "201", description = "Log salvat cu succes"),
+            @ApiResponse(responseCode = "404", description = "User sau aliment negasit")})
     @PostMapping({"/save"})
     public ResponseEntity<String> saveLog(@RequestBody SaveLogRequestDTO request) {
         this.dailyLogService.addLog(request.getUserId(), request.getFoodId(), request.getQuantity(), request.getMealType(), request.getDate());
         return ResponseEntity.status(201).body("Log salvat cu succes");
-    }
-
-    @Operation(
-            summary = "Sumar calorii pe luna"
-    )
-    @GetMapping({"/{userId}/monthly-summary"})
-    public ResponseEntity<Map<String, Double>> getMonthlySummary(@PathVariable Long userId, @RequestParam int year, @RequestParam int month) {
-        Map<LocalDate, Double> summary = this.dailyLogService.getMonthlyCaloriesSummary(userId, year, month);
-        Map<String, Double> result = new LinkedHashMap();
-        summary.forEach((date, cal) -> result.put(date.toString(), cal));
-        return ResponseEntity.ok(result);
     }
 
     @Operation(summary = "Actualizeaza cantitatea unui log")
@@ -107,6 +82,15 @@ public class DailyLogController {
     public ResponseEntity<String> deleteLog(@PathVariable Long logId) {
         dailyLogService.deleteLog(logId);
         return ResponseEntity.ok("Log sters cu succes");
+    }
+
+    @Operation(summary = "Sumar calorii pe luna")
+    @GetMapping({"/{userId}/monthly-summary"})
+    public ResponseEntity<Map<String, Double>> getMonthlySummary(@PathVariable Long userId, @RequestParam int year, @RequestParam int month) {
+        Map<LocalDate, Double> summary = this.dailyLogService.getMonthlyCaloriesSummary(userId, year, month);
+        Map<String, Double> result = new LinkedHashMap();
+        summary.forEach((date, cal) -> result.put(date.toString(), cal));
+        return ResponseEntity.ok(result);
     }
 }
 

@@ -70,7 +70,7 @@ class AddFood extends React.Component {
     };
 
     handleNewFoodInput = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; /* face update la campurile din new food */
         this.setState(prev => ({ newFood: { ...prev.newFood, [name]: value } }));
     };
 
@@ -103,6 +103,7 @@ class AddFood extends React.Component {
             });
     };
 
+    /* Search food */
     getFilteredFoods = () => {
         const q = this.state.searchQuery.toLowerCase();
         return this.state.allFoods.filter(f => f.name.toLowerCase().includes(q));
@@ -162,7 +163,7 @@ class AddFood extends React.Component {
                            onChange={e => this.setState({ searchQuery: e.target.value })}
                            sx={{ mb: 1.5 }}
                            InputProps={{
-                               startAdornment: <InputAdornment position="start">🔍</InputAdornment>
+                               startAdornment: <InputAdornment position="start"></InputAdornment>
                            }} />
 
                 {/* Create button */}

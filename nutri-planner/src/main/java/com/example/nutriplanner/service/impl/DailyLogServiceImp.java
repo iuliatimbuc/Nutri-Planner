@@ -51,11 +51,6 @@ public class DailyLogServiceImp implements DailyLogService {
         }
     }
 
-    public List<DailyLog> getTodayLogsByMeal(Long userId, MealType mealType) {
-        User user = this.userService.getUserById(userId);
-        return this.dailyLogsRepository.findByUserAndLogDateAndMealType(user, LocalDate.now(), mealType);
-    }
-
     public Map<LocalDate, Double> getMonthlyCaloriesSummary(Long userId, int year, int month) {
         User user = this.userService.getUserById(userId);
         LocalDate start = LocalDate.of(year, month, 1);
@@ -71,37 +66,6 @@ public class DailyLogServiceImp implements DailyLogService {
 
         return summary;
     }
-
-    public double getTodayTotalCalories(Long userId) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCaloriesByUserAndLogDate(user, LocalDate.now());
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTodayTotalCarbs(Long userId) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCarbsByUserAndLogDate(user, LocalDate.now());
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTodayTotalProtein(Long userId) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumProteinByUserAndLogDate(user, LocalDate.now());
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTodayTotalFat(Long userId) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumFatByUserAndLogDate(user, LocalDate.now());
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getCaloriesByMeal(Long userId, MealType mealType) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCaloriesByUserAndLogDateAndMealType(user, LocalDate.now(), mealType);
-        return total != null ? total : (double)0.0F;
-    }
-
     public List<DailyLog> getLogsByMealAndDate(Long userId, MealType mealType, LocalDate date) {
         User user = this.userService.getUserById(userId);
         return this.dailyLogsRepository.findByUserAndLogDateAndMealType(user, date, mealType);

@@ -11,8 +11,8 @@ import { PieChart, Pie, Cell } from "recharts";
 import axiosInstance from "../helper/axios";
 import history from "../helper/history";
 import CalendarPanel from '../components/CalendarPanel';
+import dayjs from "dayjs";
 const WATER_GOAL_ML = 2500;
-const CUP_ML = 250;
 
 class Home extends React.Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class Home extends React.Component {
             meals: { breakfast: 0, lunch: 0, dinner: 0, snack: 0 },
             waterMl: 0,
             weight: 0,
-            selectedDate: new Date(),
+            selectedDate: new Date(), // creaza automat data de azi
             showCalendar: false,
         };
     }
@@ -60,6 +60,7 @@ class Home extends React.Component {
         }
     }
 
+    // pentru alta zi din calendar calculeaza tot
     fetchDateData = (dateStr, userId) => {
         axiosInstance.get(`/logs/${userId}?date=${dateStr}`)
             .then(res => {
@@ -92,21 +93,20 @@ class Home extends React.Component {
             .catch(err => console.log(err));
     };
 
+    // schimba data cu + sau - o zi si actualizeaza noua pagina
     changeDate = (delta) => {
-        this.setState(prev => {
-            const newDate = new Date(prev.selectedDate);
-            newDate.setDate(newDate.getDate() + delta);
-            return { selectedDate: newDate };
-        }, () => {
+        const newDate = dayjs(this.state.selectedDate).add(delta, 'day').toDate();
+        this.setState({ selectedDate: newDate }, () => {
             const userId = localStorage.getItem("USER_ID");
-            const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
+            const dateStr = dayjs(newDate).format('YYYY-MM-DD');
             this.fetchDateData(dateStr, userId);
         });
     };
 
     addWater = (ml) => {
         const userId = localStorage.getItem("USER_ID");
-        const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
+        const dateStr = this.state.selectedDate.toISOString().slice(0, 10); // taie ora
+
         axiosInstance.post(`/water/${userId}`, { amountMl: ml, date: dateStr })
             .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
                 .then(res => this.setState({ waterMl: Math.min(res.data, WATER_GOAL_ML) })))
@@ -116,7 +116,6 @@ class Home extends React.Component {
     removeWater = () => {
         const userId = localStorage.getItem("USER_ID");
         const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
-        const newAmount = Math.max(this.state.waterMl - 250, 0);
 
         axiosInstance.post(`/water/${userId}`, { amountMl: -250, date: dateStr })
             .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
@@ -131,20 +130,20 @@ class Home extends React.Component {
     saveWeight = () => {
         const userId = localStorage.getItem("USER_ID");
         const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
-        axiosInstance.post(`/weight/${userId}?date=${dateStr}`, { weightKg: this.state.weight })
-            .then(() => alert(`Weight saved: ${this.state.weight.toFixed(2)} kg`))
-            .catch(() => {
-                axiosInstance.get(`/weight/${userId}/history`)
-                    .then(res => {
-                        const logs = res.data;
-                        const todayLog = logs.find(l => l.logDate === dateStr);
-                        if (todayLog) {
-                            axiosInstance.put(`/weight/${todayLog.id}`, { weightKg: this.state.weight })
-                                .then(() => alert(`Weight updated: ${this.state.weight.toFixed(2)} kg`))
-                                .catch(e => console.log(e));
-                        }
-                    });
-            });
+        const weightData = { weightKg: this.state.weight };
+
+        if (this.state.currentLogId) {
+            axiosInstance.put(`/weight/${this.state.currentLogId}`, weightData)
+                .then(() => alert("Greutate actualizată!"))
+                .catch(e => console.error(e));
+        } else {
+            axiosInstance.post(`/weight/${userId}?date=${dateStr}`, weightData)
+                .then(res => {
+                    alert("Greutate salvată!");
+                    this.setState({ currentLogId: res.data.id });
+                })
+                .catch(e => console.error(e));
+        }
     };
 
     render() {
@@ -154,7 +153,7 @@ class Home extends React.Component {
         const proteinGoal = user ? user.dailyProteinGoal : 0;
         const carbsGoal = user ? user.dailyCarbsGoal : 0;
         const fatGoal = user ? user.dailyFatGoal : 0;
-        const caloriesLeft = calorieGoal - consumed.calories; // fără Math.max
+        const caloriesLeft = calorieGoal - consumed.calories;
         const isOverGoal = caloriesLeft < 0;
         const overBy = Math.abs(caloriesLeft);
 
@@ -407,6 +406,7 @@ class Home extends React.Component {
                     </CardContent>
                 </Card>
 
+                {/* Button calendar */}
                 <Card sx={{ ...card, mt: 3 }}>
                     <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
                         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
