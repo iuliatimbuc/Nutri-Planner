@@ -1,11 +1,9 @@
 package com.login.auth.controller;
 
 import com.login.auth.dto.LoginRequestDTO;
+import com.login.auth.dto.UserDTO;
 import com.login.auth.model.User;
 import com.login.auth.service.AuthService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,21 +16,25 @@ import java.util.NoSuchElementException;
 @RequestMapping({"/auth"})
 @Tag(name = "Authentication", description = "Operatii de autentificare")
 public class AuthController {
+
     private final AuthService authService;
+
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
-    @Operation(summary = "Login user", description = "Autentifica un user pe baza credentialelor si returneaza datele acestuia")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Autentificare reusita"),
-            @ApiResponse(responseCode = "401", description = "Credentiale invalide")})
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        try{
-            User user = this.authService.login(loginRequestDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        } catch (NoSuchElementException var3) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    public ResponseEntity<UserDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        try {
+            User user = authService.login(loginRequestDTO);
+            UserDTO dto = new UserDTO();
+            dto.setId(user.getId());
+            dto.setName(user.getName());
+            dto.setEmail(user.getEmail());
+            return ResponseEntity.ok(dto);
+
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 }

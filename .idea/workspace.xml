@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6b09fa8-de2d-4858-8f44-e87b67e82b3f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/features/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/features/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/features/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/features/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/DailyLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/DailyLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WaterLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WaterLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WeightLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/controller/WeightLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/repository/WaterLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/repository/WaterLogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WaterLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WaterLogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WeightLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/WeightLogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WaterLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WaterLogServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WeightLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/nutri-planner/src/main/java/com/example/nutriplanner/service/impl/WeightLogServiceImp.java" afterDir="false" />
-    </list>
+    <list default="true" id="c6b09fa8-de2d-4858-8f44-e87b67e82b3f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,18 +20,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "iuliatimbuc"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;iuliatimbuc&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:iuliatimbuc/Nutri-Planner.git",
-    "accountId": "31ab4ba2-e8ea-480e-80e0-475b16d5ec21"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:iuliatimbuc/Nutri-Planner.git&quot;,
+    &quot;accountId&quot;: &quot;31ab4ba2-e8ea-480e-80e0-475b16d5ec21&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -97,6 +85,7 @@
       <workItem from="1776692850359" duration="218000" />
       <workItem from="1776704594502" duration="847000" />
       <workItem from="1777194524204" duration="90000" />
+      <workItem from="1777287973998" duration="9000" />
     </task>
     <servers />
   </component>

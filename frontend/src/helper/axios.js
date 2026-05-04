@@ -9,11 +9,10 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(config => {
-    const path = window.location.pathname;
-    if (path.includes("login")) {
-        config.baseURL = "http://localhost:8082";
+    if (config.url.includes("/auth/")) {
+        config.baseURL = "http://localhost:8082"; // auth
     } else {
-        config.baseURL = "http://localhost:8080";
+        config.baseURL = "http://localhost:8080"; // nutri-planner
     }
     return config;
 });

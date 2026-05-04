@@ -2,6 +2,8 @@ package com.example.nutriplanner.controller;
 
 
 import com.example.nutriplanner.dto.WaterLogRequestDTO;
+import com.example.nutriplanner.exceptions.ApiExceptionResponse;
+import com.example.nutriplanner.mapper.WaterLogMapper;
 import com.example.nutriplanner.model.WaterLog;
 import com.example.nutriplanner.service.impl.WaterLogServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,14 +42,10 @@ public class WaterLogController {
             @ApiResponse(responseCode = "200", description = "Total returnat cu succes"),
             @ApiResponse(responseCode = "404", description = "User negasit")})
     @GetMapping({"/{userId}/today"})
-    public ResponseEntity getTodayTotal(@PathVariable Long userId, @RequestParam(required = false) String date) {
-        try {
-            LocalDate logDate = date != null ? LocalDate.parse(date) : LocalDate.now();
-            int total = this.waterLogService.getTotalByDate(userId, logDate);
-            return ResponseEntity.ok(total);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity getTodayTotal(@PathVariable Long userId, @RequestParam(required = false) String date) throws ApiExceptionResponse {
+        LocalDate logDate = date != null ? LocalDate.parse(date) : LocalDate.now();
+        return ResponseEntity.ok(waterLogService.getTotalByDate(userId, logDate));
+
     }
 
     @Operation(summary = "Adauga un log de apa", description = "Inregistreaza un consum de apa pentru un user")
@@ -56,14 +54,19 @@ public class WaterLogController {
             @ApiResponse(responseCode = "400", description = "Amount invalid"),
             @ApiResponse(responseCode = "404", description = "User negasit")})
     @PostMapping({"/{userId}"})
-    public ResponseEntity addWaterLog(@PathVariable Long userId, @RequestBody WaterLogRequestDTO request) {
-        try {
-            WaterLog log = this.waterLogService.addWaterLog(userId, request.getAmountMl(), request.getDate());
-            return ResponseEntity.status(HttpStatus.CREATED).body(log);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity addWaterLog(@PathVariable Long userId, @RequestBody WaterLogRequestDTO request) throws ApiExceptionResponse{
+        WaterLog log = waterLogService.addWaterLog(userId, request.getAmountMl(), request.getDate());
+        return ResponseEntity.status(HttpStatus.CREATED).body(WaterLogMapper.toDto(log));
+    }
+
+    @Operation(summary = "Updateaza log de apa", description = "Aduna sau scade apa din log-ul zilei pentru un user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Log actualizat cu succes"),
+            @ApiResponse(responseCode = "404", description = "User sau log negasit"),
+            @ApiResponse(responseCode = "400", description = "Amount invalid")})
+    @PutMapping("/{userId}")
+    public ResponseEntity updateWaterLog(@PathVariable Long userId, @RequestBody WaterLogRequestDTO request) throws ApiExceptionResponse {
+        WaterLog log = waterLogService.updateWaterLog(userId, request.getAmountMl(), request.getDate());
+        return ResponseEntity.ok(log);
     }
 }

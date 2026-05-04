@@ -38,6 +38,10 @@ calculeaza calorii zilnice, proteine, carbohidrati si grasimi pe baza datelor ut
 - **Tracker greutate** - inregistrarea greutatii zilnice cu grafic de evolutie si calcul BMI
 - **Calendar** - vizualizarea istoricului nutritional pe luna cu indicatori colorati (verde = in limita, rosu = depasit)
 
+## Functionalitati A3
+- **Conversatie in timp real** - sistem de mesagerie intre utilizatori cu WebSocket, istoric conversatii si cautare utilizatori dupa nume
+- **Notificari** - notificari automate in browser la orele meselor (mic dejun, gustare, pranz, gustare, cina) folosind WebSocket si Spring Scheduler
+
 ## Cum rulezi aplicatia
 
 **Backend autentificare (port 8082):**

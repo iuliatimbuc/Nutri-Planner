@@ -6,6 +6,7 @@ import MealDetail from './features/MealDetail';
 import WeightProgress from './features/WeightProgress';
 import Register from "./features/Register";
 import AddFood from "./features/AddFood";
+import Chat from "./features/Chat";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/register" element={<Register/>} />
                 <Route path="/weight-progress" element={<WeightProgress />} />
                 <Route path="/add-food" element={<AddFood/>} />
+                <Route path="/chat" element={<Chat/>} />
             </Routes>
         </BrowserRouter>
     );

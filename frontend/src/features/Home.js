@@ -11,7 +11,10 @@ import { PieChart, Pie, Cell } from "recharts";
 import axiosInstance from "../helper/axios";
 import history from "../helper/history";
 import CalendarPanel from '../components/CalendarPanel';
+import NotificationService from '../components/NotificationService';
 import dayjs from "dayjs";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const WATER_GOAL_ML = 2500;
 
 class Home extends React.Component {
@@ -30,6 +33,17 @@ class Home extends React.Component {
 
     componentDidMount() {
         const userId = localStorage.getItem("USER_ID");
+
+        NotificationService.connect(userId, (message) => {
+            toast.info(message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        });
+
         if (userId) {
             axiosInstance.get(`/users/${userId}`)
                 .then(res => this.setState({ user: res.data, weight: res.data.weight }))
@@ -58,6 +72,10 @@ class Home extends React.Component {
                 })
                 .catch(err => console.log(err));
         }
+    }
+
+    componentWillUnmount() {
+        NotificationService.disconnect();
     }
 
     // pentru alta zi din calendar calculeaza tot
@@ -105,19 +123,26 @@ class Home extends React.Component {
 
     addWater = (ml) => {
         const userId = localStorage.getItem("USER_ID");
-        const dateStr = this.state.selectedDate.toISOString().slice(0, 10); // taie ora
+        const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
 
-        axiosInstance.post(`/water/${userId}`, { amountMl: ml, date: dateStr })
-            .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
-                .then(res => this.setState({ waterMl: Math.min(res.data, WATER_GOAL_ML) })))
-            .catch(err => console.log(err));
+        if (this.state.waterMl === 0) {
+            axiosInstance.post(`/water/${userId}`, { amountMl: ml, date: dateStr })
+                .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
+                    .then(res => this.setState({ waterMl: Math.min(res.data, WATER_GOAL_ML) })))
+                .catch(err => console.log(err));
+        } else {
+            axiosInstance.put(`/water/${userId}`, { amountMl: ml, date: dateStr })
+                .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
+                    .then(res => this.setState({ waterMl: Math.min(res.data, WATER_GOAL_ML) })))
+                .catch(err => console.log(err));
+        }
     };
 
     removeWater = () => {
         const userId = localStorage.getItem("USER_ID");
         const dateStr = this.state.selectedDate.toISOString().slice(0, 10);
 
-        axiosInstance.post(`/water/${userId}`, { amountMl: -250, date: dateStr })
+        axiosInstance.put(`/water/${userId}`, { amountMl: -250, date: dateStr })
             .then(() => axiosInstance.get(`/water/${userId}/today?date=${dateStr}`)
                 .then(res => this.setState({ waterMl: Math.max(res.data, 0) })))
             .catch(err => console.log(err));
@@ -185,6 +210,8 @@ class Home extends React.Component {
         return (
             <Container maxWidth="sm" sx={{ pb: 4 }}>
 
+                <ToastContainer /> {}
+
                 {/* Header */}
                 <Card sx={{ ...card, mt: 3 }}>
                     <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
@@ -208,6 +235,10 @@ class Home extends React.Component {
                         </Box>
                     </CardContent>
                 </Card>
+
+                <Button onClick={() => { history.push("/chat"); window.location.reload(); }}>
+                     Messages
+                </Button>
 
                 {/* Calorii */}
                 <Card sx={card}>

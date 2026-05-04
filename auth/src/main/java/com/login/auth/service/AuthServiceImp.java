@@ -2,33 +2,31 @@ package com.login.auth.service;
 
 import com.login.auth.dto.LoginRequestDTO;
 import com.login.auth.model.User;
+import com.login.auth.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 
 import java.util.NoSuchElementException;
 
 @Service
 public class AuthServiceImp implements AuthService {
-    private final PasswordEncoder passwordEncoder;
-    private final RestTemplate restTemplate;
 
-    public AuthServiceImp(PasswordEncoder passwordEncoder) {
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+
+    public AuthServiceImp(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
-        this.restTemplate = new RestTemplate();
+        this.userRepository = userRepository;
     }
 
     public User login(LoginRequestDTO loginRequestDTO) {
-        // request catre backendul principal sa vedem daca exista user ul
-        try {
-            User user = restTemplate.getForObject("http://localhost:8080/users/email/" + loginRequestDTO.getEmail(), User.class);
-            if (user == null) {throw new NoSuchElementException("User not found");}
-            if (!passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
-                throw new NoSuchElementException("Invalid credentials");}
-            return user;
-
-        } catch (Exception e) {
+        User user = userRepository.findByEmail(loginRequestDTO.getEmail())
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        if (!passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
             throw new NoSuchElementException("Invalid credentials");
         }
+
+        return user;
     }
 }

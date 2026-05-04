@@ -47,7 +47,10 @@ class Login extends React.Component {
             })
             .catch(error => {
                 console.log(error);
-                alert("Invalid Credentials");
+                const message = error.response?.data?.message
+                    || error.response?.data
+                    || "Invalid Credentials";
+                alert(message);
             });
     };
 

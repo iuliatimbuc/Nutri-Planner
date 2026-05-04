@@ -1,20 +1,20 @@
 package com.example.nutriplanner.service.impl;
 
-
 import com.example.nutriplanner.constants.MealType;
+import com.example.nutriplanner.exceptions.ApiExceptionResponse;
 import com.example.nutriplanner.model.DailyLog;
 import com.example.nutriplanner.model.Food;
 import com.example.nutriplanner.model.User;
 import com.example.nutriplanner.repository.DailyLogRepository;
 import com.example.nutriplanner.service.DailyLogService;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class DailyLogServiceImp implements DailyLogService {
+
     private final DailyLogRepository dailyLogsRepository;
     private final UserServiceImp userService;
     private final FoodServiceImp foodService;
@@ -25,10 +25,11 @@ public class DailyLogServiceImp implements DailyLogService {
         this.foodService = foodService;
     }
 
-    public DailyLog addLog(Long userId, Long foodId, Double quantity, MealType mealType, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Food food = this.foodService.getFoodById(foodId);
+    public DailyLog addLog(Long userId, Long foodId, Double quantity, MealType mealType, LocalDate date) throws ApiExceptionResponse{
+        User user = userService.getUserById(userId);
+        Food food = foodService.getFoodById(foodId);
         double ratio = quantity / food.getServingSize();
+
         DailyLog log = new DailyLog();
         log.setUser(user);
         log.setFood(food);
@@ -39,83 +40,100 @@ public class DailyLogServiceImp implements DailyLogService {
         log.setCalculatedProtein(food.getProtein() * ratio);
         log.setCalculatedCarbs(food.getCarbs() * ratio);
         log.setCalculatedFat(food.getFat() * ratio);
-        return this.dailyLogsRepository.save(log);
+        return dailyLogsRepository.save(log);
     }
 
-    public DailyLog getLogById(Long id) {
-        DailyLog log = this.dailyLogsRepository.findById(id);
+    public DailyLog getLogById(Long id) throws ApiExceptionResponse{
+        DailyLog log = dailyLogsRepository.findById(id).orElse(null);
         if (log == null) {
-            throw new RuntimeException("DailyLog Not Found");
-        } else {
-            return log;
+            throw ApiExceptionResponse.builder()
+                    .errors(Collections.singletonList("No log with id " + id))
+                    .message("Entity not found")
+                    .status(HttpStatus.NOT_FOUND)
+                    .build();
         }
+        return log;
     }
 
-    public Map<LocalDate, Double> getMonthlyCaloriesSummary(Long userId, int year, int month) {
-        User user = this.userService.getUserById(userId);
+    public List<DailyLog> getLogsByMealAndDate(Long userId, MealType mealType, LocalDate date) throws ApiExceptionResponse{
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDateAndMealType(user, date, mealType);
+    }
+
+    public double getTotalCaloriesByDate(Long userId, LocalDate date)throws ApiExceptionResponse {
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDate(user, date)
+                .stream()
+                .mapToDouble(DailyLog::getCalculatedCalories)
+                .sum();
+    }
+
+    public double getTotalProteinByDate(Long userId, LocalDate date) throws ApiExceptionResponse{
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDate(user, date)
+                .stream()
+                .mapToDouble(DailyLog::getCalculatedProtein)
+                .sum();
+    }
+
+    public double getTotalCarbsByDate(Long userId, LocalDate date) throws ApiExceptionResponse{
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDate(user, date)
+                .stream()
+                .mapToDouble(DailyLog::getCalculatedCarbs)
+                .sum();
+    }
+
+    public double getTotalFatByDate(Long userId, LocalDate date) throws ApiExceptionResponse{
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDate(user, date)
+                .stream()
+                .mapToDouble(DailyLog::getCalculatedFat)
+                .sum();
+    }
+
+    public double getCaloriesByMealAndDate(Long userId, MealType mealType, LocalDate date) throws ApiExceptionResponse {
+        User user = userService.getUserById(userId);
+        return dailyLogsRepository.findByUserAndLogDateAndMealType(user, date, mealType)
+                .stream()
+                .mapToDouble(DailyLog::getCalculatedCalories)
+                .sum();
+    }
+
+    public Map<LocalDate, Double> getMonthlyCaloriesSummary(Long userId, int year, int month) throws ApiExceptionResponse {
+        User user = userService.getUserById(userId);
         LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
-        Map<LocalDate, Double> summary = new HashMap();
+        Map<LocalDate, Double> summary = new HashMap<>();
 
-        for(LocalDate current = start; !current.isAfter(end); current = current.plusDays(1L)) {
-            Double total = this.dailyLogsRepository.sumCaloriesByUserAndLogDate(user, current);
-            if (total != null && total > (double)0.0F) {
+        for (LocalDate current = start; !current.isAfter(end); current = current.plusDays(1)) {
+            double total = dailyLogsRepository.findByUserAndLogDate(user, current)
+                    .stream()
+                    .mapToDouble(DailyLog::getCalculatedCalories)
+                    .sum();
+            if (total > 0) {
                 summary.put(current, total);
             }
         }
-
         return summary;
     }
-    public List<DailyLog> getLogsByMealAndDate(Long userId, MealType mealType, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        return this.dailyLogsRepository.findByUserAndLogDateAndMealType(user, date, mealType);
-    }
 
-    public double getTotalCaloriesByDate(Long userId, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCaloriesByUserAndLogDate(user, date);
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTotalProteinByDate(Long userId, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumProteinByUserAndLogDate(user, date);
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTotalCarbsByDate(Long userId, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCarbsByUserAndLogDate(user, date);
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getTotalFatByDate(Long userId, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumFatByUserAndLogDate(user, date);
-        return total != null ? total : (double)0.0F;
-    }
-
-    public double getCaloriesByMealAndDate(Long userId, MealType mealType, LocalDate date) {
-        User user = this.userService.getUserById(userId);
-        Double total = this.dailyLogsRepository.sumCaloriesByUserAndLogDateAndMealType(user, date, mealType);
-        return total != null ? total : (double)0.0F;
-    }
-
-    public DailyLog updateLog(Long logId, Double newQuantity, MealType newMealType) {
-        DailyLog existing = this.getLogById(logId);
+    public DailyLog updateLog(Long logId, Double newQuantity, MealType newMealType) throws ApiExceptionResponse{
+        DailyLog existing = getLogById(logId);
         Food food = existing.getFood();
         double ratio = newQuantity / food.getServingSize();
+
         existing.setQuantity(newQuantity);
         existing.setMealType(newMealType);
         existing.setCalculatedCalories(food.getCalories() * ratio);
         existing.setCalculatedProtein(food.getProtein() * ratio);
         existing.setCalculatedCarbs(food.getCarbs() * ratio);
         existing.setCalculatedFat(food.getFat() * ratio);
-        return this.dailyLogsRepository.save(existing);
+        return dailyLogsRepository.save(existing);
     }
 
-    public void deleteLog(Long logId) {
-        this.getLogById(logId);
-        this.dailyLogsRepository.deleteById(logId);
+    public void deleteLog(Long logId) throws ApiExceptionResponse{
+        getLogById(logId);
+        dailyLogsRepository.deleteById(logId);
     }
 }
