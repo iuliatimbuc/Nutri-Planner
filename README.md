@@ -1,27 +1,3 @@
-Note
-
-A1: 9,5
-
-A2: 
-
-A3: 
-
-P1: 7
-
-P2: 7
-
-P3: 
-
-P Implementation: 
-
-P Final Design: 
-
----------------------------------------
-
-Nota Lab 1: 
-
-Nota Lab 2: 
-
 # Nutri Planner
 
 Nutri Planner este o aplicatie web full-stack de planificare nutritionala care ajuta utilizatorii sa isi monitorizeze dieta, greutatea si consumul de apa.
@@ -31,14 +7,10 @@ Nutri Planner este o aplicatie web full-stack de planificare nutritionala care a
 - **Autentificare** - in cont personal cu mail si parola
 - **Jurnal alimentar** - logarea meselor pe zile (mic dejun, pranz, cina, snack) cu vizualizarea macronutrientilor
 - **Tracker apa** - monitorizarea consumului zilnic de apa
-
-## Functionalitati A2
 - **Inregistrare si calculul automan al goalurilor** - cont personalizat cu date fizice (varsta, inaltime, greutate, goal) care
 calculeaza calorii zilnice, proteine, carbohidrati si grasimi pe baza datelor utilizatorului folosind formula Mifflin-St Jeor
 - **Tracker greutate** - inregistrarea greutatii zilnice cu grafic de evolutie si calcul BMI
 - **Calendar** - vizualizarea istoricului nutritional pe luna cu indicatori colorati (verde = in limita, rosu = depasit)
-
-## Functionalitati A3
 - **Conversatie in timp real** - sistem de mesagerie intre utilizatori cu WebSocket, istoric conversatii si cautare utilizatori dupa nume
 - **Notificari** - notificari automate in browser la orele meselor (mic dejun, gustare, pranz, gustare, cina) folosind WebSocket si Spring Scheduler
 
